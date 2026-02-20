@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Pro Scanner with QR Support</title>
+<title>Premium Price Check Detail</title>
 <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -14,175 +15,197 @@
                 extend: {
                     colors: {
                         "primary": "#ea2a33",
-                        "tech-green": "#00ff9d",
-                        "tech-blue": "#00c3ff",
                         "background-light": "#f8f6f6",
-                        "background-dark": "#0f172a",
-                        "surface-dark": "rgba(15, 23, 42, 0.85)",
+                        "background-dark": "#181111", 
+                        "surface-dark": "#261c1c",
+                        "surface-darker": "#1f1515",
                     },
                     fontFamily: {
-                        "display": ["Spline Sans", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"],
+                        "display": ["Spline Sans", "sans-serif"]
                     },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem", 
-                        "lg": "0.5rem", 
-                        "xl": "0.75rem", 
-                        "2xl": "1rem",
-                        "3xl": "1.5rem",
-                        "full": "9999px"
-                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
                     boxShadow: {
-                        'glow': '0 0 15px rgba(234, 42, 51, 0.5)',
-                        'tech-glow': '0 0 10px rgba(0, 255, 157, 0.3)',
-                        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.1)',
+                        'glow': '0 0 20px -5px rgba(234, 42, 51, 0.5)',
+                        'glow-lg': '0 0 40px -10px rgba(234, 42, 51, 0.6)',
+                        'card-glow': '0 0 60px -15px rgba(249, 115, 22, 0.3)', 
                     }
                 },
             },
         }
     </script>
-<style>.camera-overlay-corner {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border-color: #00ff9d;
-            border-style: solid;
-            transition: all 0.2s ease;
-            opacity: 0.8;
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 4px;
         }
-        .corner-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-        .corner-tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
-        .corner-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
-        .corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
-        .shutter-btn:active .inner-circle {
-            transform: scale(0.9);
+        ::-webkit-scrollbar-track {
+            background: #181111; 
         }
-        .data-overlay {
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        ::-webkit-scrollbar-thumb {
+            background: #382929; 
+            border-radius: 2px;
+        }
+        
+        .glass-panel {
+            background: rgba(38, 28, 28, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at center, rgba(234, 42, 51, 0.15) 0%, rgba(24, 17, 17, 0) 70%);
         }
     </style>
-<style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
 <style>
     body {
       min-height: max(884px, 100dvh);
     }
   </style>
   </head>
-<body class="bg-background-dark font-display antialiased h-screen w-full overflow-hidden flex flex-col relative text-slate-100">
-<div class="absolute inset-0 z-0 bg-black">
-<div class="w-full h-full bg-cover bg-center opacity-70" data-alt="Pokemon trading card on a dark surface ready to be scanned" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHb--dHLV-YHaRg3797gYcW7_DsyZl2c-RZe3VGXob5jH10XiSCeWUKmXWtH-pWcInpOOE8i6EInGsTc_BHXBb6gewY73aMK0_Cv_qeog_Amg1XKwpHZXY-nI-YIiplaFxY9EFWeX0h9ehbkn69AhpLx5reNZL7Hf3PezWjKoEfObbmSRjssALEuMb18VwNM5rPS0ql2Oyhr5p3tCLpf0gRvwUjJww9mP8rTa22GZ-2WbhvhpS0XQBNb74rNNQN7TyjMYxWodm43Q');"></div>
-<div class="absolute inset-0 bg-[linear-gradient(rgba(0,255,157,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,157,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
-</div>
-<div class="relative z-20 flex flex-col pt-safe-top">
-<div class="flex items-center justify-between px-4 pt-4 pb-2">
-<button class="flex size-10 items-center justify-center rounded-full bg-surface-dark text-white hover:bg-slate-700 transition-colors border border-white/10">
-<span class="material-symbols-outlined text-[20px]">close</span>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col overflow-hidden relative selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 px-4 py-4 flex items-center justify-between glass-panel border-b-0">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
 </button>
-<div class="flex h-10 items-center rounded-full bg-surface-dark p-1 border border-white/10">
-<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 text-xs font-mono font-bold text-tech-green tracking-wide border border-white/5 shadow-inner-light">
-<span class="material-symbols-outlined text-[14px]">view_in_ar</span>
-                    CARD
-                </button>
-<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full hover:bg-white/5 text-xs font-mono font-bold text-slate-400 tracking-wide transition-colors">
-<span class="material-symbols-outlined text-[14px]">qr_code_scanner</span>
-                    QR
-                </button>
-</div>
-<button class="flex size-10 items-center justify-center rounded-full bg-surface-dark text-white hover:bg-slate-700 transition-colors border border-white/10">
-<span class="material-symbols-outlined text-[20px] text-yellow-400">flash_on</span>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined">ios_share</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">favorite</span>
 </button>
 </div>
+</header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 overflow-y-auto pb-32 pt-20">
+<!-- Hero Section with Card -->
+<div class="relative w-full flex flex-col items-center justify-center pt-6 pb-10">
+<!-- Ambient Background Glow (Fire Type) -->
+<div class="absolute inset-0 hero-gradient pointer-events-none"></div>
+<!-- Card Container -->
+<div class="relative z-10 group perspective-1000">
+<div class="relative w-64 aspect-[2.5/3.5] rounded-xl shadow-card-glow transition-transform duration-500 hover:scale-105">
+<!-- Glassmorphic sheen overlay -->
+<div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-50 rounded-xl z-20 pointer-events-none"></div>
+<img alt="Charizard VMAX Pokemon Card" class="w-full h-full object-cover rounded-xl border border-white/10" data-alt="Close up of a shiny holographic trading card with fire elements" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzRvICeQHSyFen8imo3G4ZBnsLmioaWCJnO82vWqNqeFLnPuEleDY8CfkLekigvgHiymSG5Qr221fBnV4O-oBNPZEjs0cedkK5SekXJtbWMGDWG8XN7GjHChhZHdABwOuCNRh2ehOZocoJeaPpIIw5MqFFIphBnNIadMu_39jdEOSvBzUFCnssf6T8IwwDuRyjwJKYUakZi8AoQC4g70R_JJXL9WZks512CTB6C6NC8xZ0AvkQMh2r7kLGwbUO5RxLYvMX70zy1e8"/>
+<!-- Type Badge -->
+<div class="absolute -top-3 -right-3 bg-gradient-to-br from-orange-500 to-red-600 w-10 h-10 rounded-full flex items-center justify-center shadow-lg border border-white/20 z-30">
+<span class="material-symbols-outlined text-white text-xl">local_fire_department</span>
 </div>
-<div class="relative z-10 flex flex-1 flex-col items-center justify-center p-4">
-<div class="absolute top-[12%] z-30 animate-in fade-in zoom-in duration-300">
-<div class="flex flex-col items-center">
-<div class="h-8 w-[1px] bg-tech-green/50 mb-[-1px]"></div>
-<div class="data-overlay rounded-xl px-4 py-3 shadow-tech-glow min-w-[180px]">
-<div class="flex justify-between items-start gap-4 border-b border-white/10 pb-2 mb-2">
+</div>
+</div>
+<!-- Card Title & Meta -->
+<div class="mt-8 text-center px-6 z-10">
+<h1 class="text-3xl font-bold text-white tracking-tight mb-2">Charizard VMAX</h1>
+<p class="text-slate-400 text-sm font-medium tracking-wide uppercase">Shining Fates SV107 • 2021</p>
+<!-- Tags -->
+<div class="flex flex-wrap justify-center gap-2 mt-4">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-primary/20 text-primary border border-primary/20 backdrop-blur-sm">PSA 10</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-slate-300 border border-white/10 backdrop-blur-sm">Gem Mint</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-slate-300 border border-white/10 backdrop-blur-sm">Holo Rare</span>
+</div>
+</div>
+</div>
+<!-- Price Dashboard -->
+<div class="px-4 mb-6">
+<div class="glass-panel rounded-2xl p-6 flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Background Pattern -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+<p class="text-slate-400 text-sm font-medium mb-1">Market Average</p>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl md:text-5xl font-bold text-white tracking-tight">$245.50</span>
+</div>
+<div class="mt-3 flex items-center gap-2">
+<div class="flex items-center gap-1 bg-green-500/20 px-2 py-1 rounded text-green-400 text-sm font-bold border border-green-500/20">
+<span class="material-symbols-outlined text-base">trending_up</span>
+<span>12.4%</span>
+</div>
+<span class="text-slate-500 text-xs font-medium">Past 24 hours</span>
+</div>
+</div>
+</div>
+<!-- Live Market Feed -->
+<div class="px-4 pb-4">
+<div class="flex items-center justify-between mb-4 px-1">
+<h2 class="text-lg font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">ssid_chart</span>
+                    Live Market Feed
+                </h2>
+<button class="text-xs text-primary font-medium hover:text-primary/80 transition-colors">View History</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- TCGPlayer Item -->
+<div class="group bg-surface-dark border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-surface-darker transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#262626] flex items-center justify-center text-white border border-white/5">
+<span class="material-symbols-outlined text-xl">storefront</span>
+</div>
 <div>
-<p class="text-[10px] uppercase text-slate-400 font-mono tracking-wider">Charizard VMAX</p>
-<p class="text-xs text-slate-300 font-medium">Darkness Ablaze</p>
-</div>
-<span class="flex h-5 w-5 items-center justify-center rounded bg-tech-green/20 text-tech-green">
-<span class="material-symbols-outlined text-[14px]">check</span>
-</span>
-</div>
-<div class="flex items-end justify-between">
-<div class="flex flex-col">
-<span class="text-[10px] text-slate-400 font-mono">MARKET PRICE</span>
-<span class="text-2xl font-bold text-white font-mono tracking-tight">$185.50</span>
-</div>
-<span class="text-[10px] text-green-400 mb-1 flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[12px]">trending_up</span>
-                            +2.4%
-                        </span>
+<p class="text-white font-semibold text-sm">TCGPlayer Market</p>
+<p class="text-slate-500 text-xs">Updated 5m ago</p>
 </div>
 </div>
+<div class="text-right">
+<p class="text-white font-bold text-lg">$240.00</p>
+<p class="text-slate-500 text-xs font-medium">Low</p>
 </div>
 </div>
-<div class="relative aspect-[2.5/3.5] w-full max-w-[280px]">
-<div class="absolute inset-0 rounded-lg border-2 border-tech-green shadow-[0_0_20px_rgba(0,255,157,0.2)] bg-tech-green/5 backdrop-blur-[1px]">
-<div class="absolute inset-x-0 top-0 h-[1px] bg-tech-green shadow-[0_0_10px_#00ff9d] animate-[scan_2s_linear_infinite] opacity-80"></div>
-<div class="absolute top-2 left-2 text-[8px] font-mono text-tech-green/80">MODE: CARD SCAN</div>
-<div class="absolute bottom-2 right-2 text-[8px] font-mono text-tech-green/80">98% CONFIDENCE</div>
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4">
-<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-tech-green/30"></div>
-<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[1px] bg-tech-green/30"></div>
+<!-- eBay Item -->
+<div class="group bg-surface-dark border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-surface-darker transition-colors cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#262626] flex items-center justify-center text-white border border-white/5">
+<span class="material-symbols-outlined text-xl">gavel</span>
+</div>
+<div>
+<p class="text-white font-semibold text-sm">eBay Last Sold</p>
+<p class="text-slate-500 text-xs">Updated 2m ago</p>
 </div>
 </div>
-<div class="camera-overlay-corner corner-tl -ml-2 -mt-2 border-white/40"></div>
-<div class="camera-overlay-corner corner-tr -mr-2 -mt-2 border-white/40"></div>
-<div class="camera-overlay-corner corner-bl -ml-2 -mb-2 border-white/40"></div>
-<div class="camera-overlay-corner corner-br -mr-2 -mb-2 border-white/40"></div>
+<div class="text-right">
+<p class="text-primary font-bold text-lg">$255.00</p>
+<p class="text-primary/70 text-xs font-medium">High</p>
 </div>
 </div>
-<div class="relative z-20 pb-8 pt-6 px-6 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent">
-<div class="flex items-end justify-between gap-6">
-<button class="group flex flex-col items-center gap-2 mb-2">
-<div class="flex size-10 items-center justify-center rounded-lg bg-white/5 border border-white/10 transition-colors group-hover:bg-white/10">
-<span class="material-symbols-outlined text-slate-300 text-[20px]">photo_library</span>
+<!-- Cardmarket Item -->
+<div class="group bg-surface-dark border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-surface-darker transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#262626] flex items-center justify-center text-white border border-white/5">
+<span class="material-symbols-outlined text-xl">public</span>
 </div>
+<div>
+<p class="text-white font-semibold text-sm">Cardmarket</p>
+<p class="text-slate-500 text-xs">Updated 15m ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-white font-bold text-lg">€220.00</p>
+<p class="text-slate-500 text-xs font-medium">~$238.10 USD</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Spacer for FAB -->
+<div class="h-6"></div>
+</main>
+<!-- Bottom Action Bar (Fixed) -->
+<div class="fixed bottom-0 left-0 w-full p-4 z-40">
+<!-- Blur Gradient Fade behind button -->
+<div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background-dark via-background-dark/90 to-transparent pointer-events-none -z-10"></div>
+<div class="flex gap-3">
+<button class="flex-1 bg-primary hover:bg-red-600 text-white h-14 rounded-xl font-bold text-lg shadow-glow flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">add_circle</span>
+                Add to Portfolio
+            </button>
+<button class="h-14 w-14 bg-surface-dark border border-white/10 rounded-xl flex items-center justify-center text-white hover:bg-surface-darker transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined">qr_code_scanner</span>
 </button>
-<button class="shutter-btn group relative flex size-20 items-center justify-center rounded-full transition-transform active:scale-95">
-<div class="absolute inset-0 rounded-full border-2 border-white/20"></div>
-<div class="absolute inset-[4px] rounded-full border-[3px] border-tech-green shadow-[0_0_15px_rgba(0,255,157,0.4)]"></div>
-<div class="inner-circle size-14 rounded-full bg-white flex items-center justify-center shadow-lg">
-<div class="size-10 rounded-full bg-slate-100 border border-slate-300"></div>
 </div>
-</button>
-<button class="group flex flex-col items-center gap-2 mb-2 relative">
-<div class="absolute -top-1 -right-1 size-4 bg-primary rounded-full text-[9px] font-bold flex items-center justify-center border border-black z-10">3</div>
-<div class="flex size-10 items-center justify-center rounded-lg bg-white/5 border border-white/10 transition-colors group-hover:bg-white/10">
-<span class="material-symbols-outlined text-slate-300 text-[20px]">list_alt</span>
+<!-- Bottom Tab Indicator (iOS Style) -->
+<div class="w-full flex justify-center mt-6 pb-1">
+<div class="w-32 h-1 bg-slate-700 rounded-full"></div>
 </div>
-</button>
 </div>
-<div class="mx-auto mt-6 h-1 w-1/3 rounded-full bg-white/20"></div>
-</div>
-<style>
-        @keyframes scan {
-            0% { top: 0%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }.pt-safe-top {
-            padding-top: env(safe-area-inset-top, 20px);
-        }
-    </style>
 </body></html>
