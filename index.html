@@ -86,7 +86,8 @@
   </head>
 <body class="bg-background-dark font-display antialiased h-screen w-full overflow-hidden flex flex-col relative text-slate-100">
 <div class="absolute inset-0 z-0 bg-black">
-<div class="w-full h-full bg-cover bg-center opacity-70" data-alt="Pokemon trading card on a dark surface ready to be scanned" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHb--dHLV-YHaRg3797gYcW7_DsyZl2c-RZe3VGXob5jH10XiSCeWUKmXWtH-pWcInpOOE8i6EInGsTc_BHXBb6gewY73aMK0_Cv_qeog_Amg1XKwpHZXY-nI-YIiplaFxY9EFWeX0h9ehbkn69AhpLx5reNZL7Hf3PezWjKoEfObbmSRjssALEuMb18VwNM5rPS0ql2Oyhr5p3tCLpf0gRvwUjJww9mP8rTa22GZ-2WbhvhpS0XQBNb74rNNQN7TyjMYxWodm43Q');"></div>
+<video id="camera-preview" class="w-full h-full object-cover opacity-70" autoplay playsinline muted></video>
+<div id="camera-fallback" class="w-full h-full bg-cover bg-center opacity-70" data-alt="Pokemon trading card on a dark surface ready to be scanned" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHb--dHLV-YHaRg3797gYcW7_DsyZl2c-RZe3VGXob5jH10XiSCeWUKmXWtH-pWcInpOOE8i6EInGsTc_BHXBb6gewY73aMK0_Cv_qeog_Amg1XKwpHZXY-nI-YIiplaFxY9EFWeX0h9ehbkn69AhpLx5reNZL7Hf3PezWjKoEfObbmSRjssALEuMb18VwNM5rPS0ql2Oyhr5p3tCLpf0gRvwUjJww9mP8rTa22GZ-2WbhvhpS0XQBNb74rNNQN7TyjMYxWodm43Q');"></div>
 <div class="absolute inset-0 bg-[linear-gradient(rgba(0,255,157,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,157,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
 </div>
 <div class="relative z-20 flex flex-col pt-safe-top">
@@ -95,17 +96,17 @@
 <span class="material-symbols-outlined text-[20px]">close</span>
 </button>
 <div class="flex h-10 items-center rounded-full bg-surface-dark p-1 border border-white/10">
-<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 text-xs font-mono font-bold text-tech-green tracking-wide border border-white/5 shadow-inner-light">
+<button id="mode-card-btn" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 text-xs font-mono font-bold text-tech-green tracking-wide border border-white/5 shadow-inner-light">
 <span class="material-symbols-outlined text-[14px]">view_in_ar</span>
                     CARD
                 </button>
-<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full hover:bg-white/5 text-xs font-mono font-bold text-slate-400 tracking-wide transition-colors">
+<button id="mode-barcode-btn" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full hover:bg-white/5 text-xs font-mono font-bold text-slate-400 tracking-wide transition-colors">
 <span class="material-symbols-outlined text-[14px]">qr_code_scanner</span>
                     QR
                 </button>
 </div>
-<button class="flex size-10 items-center justify-center rounded-full bg-surface-dark text-white hover:bg-slate-700 transition-colors border border-white/10">
-<span class="material-symbols-outlined text-[20px] text-yellow-400">flash_on</span>
+<button id="flash-btn" class="flex size-10 items-center justify-center rounded-full bg-surface-dark text-white hover:bg-slate-700 transition-colors border border-white/10">
+<span id="flash-icon" class="material-symbols-outlined text-[20px] text-yellow-400">flash_on</span>
 </button>
 </div>
 </div>
@@ -114,10 +115,11 @@
 <div class="flex flex-col items-center">
 <div class="h-8 w-[1px] bg-tech-green/50 mb-[-1px]"></div>
 <div class="data-overlay rounded-xl px-4 py-3 shadow-tech-glow min-w-[180px]">
+<p id="scan-status" class="text-[10px] uppercase text-tech-green font-mono tracking-[0.18em] mb-2">Camera ready</p>
 <div class="flex justify-between items-start gap-4 border-b border-white/10 pb-2 mb-2">
 <div>
-<p class="text-[10px] uppercase text-slate-400 font-mono tracking-wider">Charizard VMAX</p>
-<p class="text-xs text-slate-300 font-medium">Darkness Ablaze</p>
+<p id="card-name" class="text-[10px] uppercase text-slate-400 font-mono tracking-wider">Charizard VMAX</p>
+<p id="card-set" class="text-xs text-slate-300 font-medium">Darkness Ablaze</p>
 </div>
 <span class="flex h-5 w-5 items-center justify-center rounded bg-tech-green/20 text-tech-green">
 <span class="material-symbols-outlined text-[14px]">check</span>
@@ -126,9 +128,9 @@
 <div class="flex items-end justify-between">
 <div class="flex flex-col">
 <span class="text-[10px] text-slate-400 font-mono">MARKET PRICE</span>
-<span class="text-2xl font-bold text-white font-mono tracking-tight">$185.50</span>
+<span id="market-price" class="text-2xl font-bold text-white font-mono tracking-tight">$185.50</span>
 </div>
-<span class="text-[10px] text-green-400 mb-1 flex items-center gap-0.5">
+<span id="price-change" class="text-[10px] text-green-400 mb-1 flex items-center gap-0.5">
 <span class="material-symbols-outlined text-[12px]">trending_up</span>
                             +2.4%
                         </span>
@@ -139,8 +141,8 @@
 <div class="relative aspect-[2.5/3.5] w-full max-w-[280px]">
 <div class="absolute inset-0 rounded-lg border-2 border-tech-green shadow-[0_0_20px_rgba(0,255,157,0.2)] bg-tech-green/5 backdrop-blur-[1px]">
 <div class="absolute inset-x-0 top-0 h-[1px] bg-tech-green shadow-[0_0_10px_#00ff9d] animate-[scan_2s_linear_infinite] opacity-80"></div>
-<div class="absolute top-2 left-2 text-[8px] font-mono text-tech-green/80">MODE: CARD SCAN</div>
-<div class="absolute bottom-2 right-2 text-[8px] font-mono text-tech-green/80">98% CONFIDENCE</div>
+<div class="absolute top-2 left-2 text-[8px] font-mono text-tech-green/80"><span id="scan-mode-label">MODE: CARD SCAN</span></div>
+<div class="absolute bottom-2 right-2 text-[8px] font-mono text-tech-green/80"><span id="scan-confidence">98% CONFIDENCE</span></div>
 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4">
 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-tech-green/30"></div>
 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[1px] bg-tech-green/30"></div>
@@ -159,7 +161,7 @@
 <span class="material-symbols-outlined text-slate-300 text-[20px]">photo_library</span>
 </div>
 </button>
-<button class="shutter-btn group relative flex size-20 items-center justify-center rounded-full transition-transform active:scale-95">
+<button id="start-scan-btn" class="shutter-btn group relative flex size-20 items-center justify-center rounded-full transition-transform active:scale-95">
 <div class="absolute inset-0 rounded-full border-2 border-white/20"></div>
 <div class="absolute inset-[4px] rounded-full border-[3px] border-tech-green shadow-[0_0_15px_rgba(0,255,157,0.4)]"></div>
 <div class="inner-circle size-14 rounded-full bg-white flex items-center justify-center shadow-lg">
@@ -167,11 +169,18 @@
 </div>
 </button>
 <button class="group flex flex-col items-center gap-2 mb-2 relative">
-<div class="absolute -top-1 -right-1 size-4 bg-primary rounded-full text-[9px] font-bold flex items-center justify-center border border-black z-10">3</div>
+<div id="scan-count" class="absolute -top-1 -right-1 size-4 bg-primary rounded-full text-[9px] font-bold flex items-center justify-center border border-black z-10">0</div>
 <div class="flex size-10 items-center justify-center rounded-lg bg-white/5 border border-white/10 transition-colors group-hover:bg-white/10">
 <span class="material-symbols-outlined text-slate-300 text-[20px]">list_alt</span>
 </div>
 </button>
+</div>
+<div class="mt-4 rounded-xl border border-white/10 bg-surface-dark/70 p-3">
+<div class="flex items-center justify-between gap-3">
+<input id="manual-barcode" type="text" placeholder="输入/粘贴条码（测试用）" class="w-full rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-xs text-white placeholder:text-slate-400 focus:border-tech-green focus:ring-tech-green" />
+<button id="manual-scan-btn" class="rounded-lg border border-tech-green/40 px-3 py-2 text-xs font-mono text-tech-green hover:bg-tech-green/10">Decode</button>
+</div>
+<p class="mt-2 text-[10px] text-slate-400">示例条码：123456789012、042100005264、900000001234</p>
 </div>
 <div class="mx-auto mt-6 h-1 w-1/3 rounded-full bg-white/20"></div>
 </div>
@@ -185,4 +194,5 @@
             padding-top: env(safe-area-inset-top, 20px);
         }
     </style>
+<script src="scripts/app.js"></script>
 </body></html>
